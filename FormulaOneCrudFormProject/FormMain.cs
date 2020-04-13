@@ -31,9 +31,9 @@ namespace FormulaOneCrudFormProject
 
         private void btnTest_Click(object sender, EventArgs e)
         {
-            string path = @"%userprofile%\OneDrive\Desktop\teams.json";
+            string path = @"D:\Dati\db.json";
             path = Environment.ExpandEnvironmentVariables(path);
-            if (db.SerializeToJSON<Team>(teams.ToList(), path))
+            if (db.SerializeToJSON<Team>(path))
                 MessageBox.Show("Operazione completata con successo.", Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
             else
                 MessageBox.Show("Operazione fallita.", Text, MessageBoxButtons.OK, MessageBoxIcon.Error);

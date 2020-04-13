@@ -3,12 +3,9 @@
 $(function () {
     let app = new Vue({
         el: "#app",
-        components: {
-            'table-team': TableTeams,
-            'table-drivers': TableDrivers
-        },
         data: {
             data: [],
+            rows: [],
             dataRequired: '',
             disableButtons: false
         },
@@ -16,11 +13,15 @@ $(function () {
             request: function (uri) {
                 this.disableButtons = true;
                 this.data = [];
+                this.rows = [];
                 this.dataRequired = uri;
                 $.getJSON('/api/' + uri)
                     .done(data => {
                         console.log(data);
-                        app.data = data;
+                        this.data = data;
+                        for (let i = 0; i < this.data.length; i += 3) {
+                            this.rows[i] = this.data.slice(i, i + 3);
+                        }
                     })
                     .fail((jqxhr, textStatus, error) => {
                         console.log(jqxhr, textStatus, error);

@@ -1,15 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace FormulaOneDll
 {
+    [DataContract(Name = "country")]
     public class Country
     {
         #region Attributes
+        [DataMember(Name="code")]
         private string countryCode;
+        [DataMember(Name="name")]
         private string countryName;
         #endregion
 

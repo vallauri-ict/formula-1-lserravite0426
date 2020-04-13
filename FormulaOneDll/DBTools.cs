@@ -24,7 +24,10 @@ namespace FormulaOneDll
         private Dictionary<int, Driver> drivers;
         private Dictionary<string, Country> countries;
         private List<Team> teams;
+        private Dictionary<int, Circuit> circuits;
+        private Dictionary<int, Race> races;
 
+        #region Tables
         public Dictionary<int, Driver> Drivers
         {
             get
@@ -39,7 +42,7 @@ namespace FormulaOneDll
         {
             get
             {
-                if (this.countries == null)
+                if (this.countries == null || this.countries.Count == 0)
                     this.GetCountries();
                 return this.countries;
             }
@@ -55,28 +58,27 @@ namespace FormulaOneDll
             }
             set => teams = value;
         }
-
-        //public void CreateCountriesWithSmo()
-        //{
-        //    string sqlConnectionString = @"Data Source = (localdb)\MSSQLLocalDB; 
-        //        AttachDbFilename =C:\Users\loren\OneDrive\Desktop\_Scuola\2019-2020\INFORMATICA\CAMBIERI\FormulaOneSolution\FormulaOne.mdf; Integrated Security = True";
-        //    FileInfo file = new FileInfo(@"Countries.sql");
-        //    string script = file.OpenText().ReadToEnd();
-        //    SqlConnection conn = new SqlConnection(sqlConnectionString);
-        //    Server server = new Server(new ServerConnection(conn));
-
-        //    try
-        //    {
-        //        server.ConnectionContext.ExecuteNonQuery(script);
-        //        file.OpenText().Close();
-        //        conn.Close();
-        //        Console.WriteLine("CreateCountries: SUCCESS");
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Console.WriteLine("Error: " + ex);
-        //    }
-        //}
+        public Dictionary<int, Circuit> Circuits
+        {
+            get
+            {
+                if (circuits == null || circuits.Count == 0)
+                    this.GetCircuits();
+                return circuits;
+            }
+            set => circuits = value;
+        }
+        public Dictionary<int, Race> Races
+        {
+            get
+            {
+                if (races == null || races.Count == 0)
+                    this.GetRaces();
+                return races;
+            }
+            set => races = value;
+        }
+        #endregion
 
         public void ExecuteSqlScript(string sqlScriptPath)
         {
@@ -109,107 +111,63 @@ namespace FormulaOneDll
             SqlConnection.ClearAllPools();
         }
 
-        //public void MakeBackup()
-        //{
-        //    StreamReader sr = new StreamReader($"{WORKINGPATH}FormulaOne.mdf");
-        //    StreamWriter sw = new StreamWriter($"{WORKINGPATH}FormulaOneBackup.mdf");
-        //    sw.Write(sr.ReadToEnd());
-        //    sr.Close();
-        //    sw.Close();
-        //}
-        //public void Restore()
-        //{
-        //    StreamReader sr = new StreamReader($"{WORKINGPATH}FormulaOneBackup.mdf");
-        //    StreamWriter sw = new StreamWriter($"{WORKINGPATH}FormulaOne.mdf");
-        //    sw.Write(sr.ReadToEnd());
-        //    sr.Close();
-        //    sw.Close();
-        //}
-
-        //public void DropTable(string tableName)
-        //{
-        //    var con = new SqlConnection($@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename={WORKINGPATH}FormulaOne.mdf;Integrated Security=True");
-        //    var cmd = new SqlCommand($"Drop Table {tableName};", con);
-        //    con.Open();
-        //    try
-        //    {
-        //        cmd.ExecuteNonQuery();
-        //    }
-        //    catch (SqlException ex)
-        //    {
-        //        Console.WriteLine($"Errore: {ex.Number} {ex.Message}");
-        //    }
-        //    con.Close();
-        //    con.Dispose();
-        //}
-
-        public void GetCountries()
+        private void GetCountries()
         {
-            if (this.countries == null)
+            this.countries = new Dictionary<string, Country>();
+            var con = new SqlConnection(CONNECTION_STRING);
+            using (con)
             {
-                this.countries = new Dictionary<string, Country>();
-                var con = new SqlConnection(CONNECTION_STRING);
-                using (con)
+                con.Open();
+                var command = new SqlCommand("SELECT * FROM Countries;", con);
+                SqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
                 {
-                    con.Open();
-                    var command = new SqlCommand("SELECT * FROM Countries;", con);
-                    SqlDataReader reader = command.ExecuteReader();
-                    while (reader.Read())
+                    string countryIsoCode = reader.GetString(0);
+                    Country c = new Country()
                     {
-                        string countryIsoCode = reader.GetString(0);
-                        Country c = new Country()
-                        {
-                            CountryCode = countryIsoCode,
-                            CountryName = reader.GetString(1)
-                        };
-                        this.countries.Add(countryIsoCode, c);
-                    }
-                    con.Close();
-                    con.Dispose();
+                        CountryCode = countryIsoCode,
+                        CountryName = reader.GetString(1)
+                    };
+                    this.countries.Add(countryIsoCode, c);
                 }
-                SqlConnection.ClearAllPools();
+                con.Close();
+                con.Dispose();
             }
+            SqlConnection.ClearAllPools();
         }
 
-
-        public void GetDrivers(bool forceReload = false)
+        private void GetDrivers(bool forceReload = false)
         {
-            if (forceReload/* || this.countries == null*/)
-                this.GetCountries();
-            if (forceReload || this.drivers == null)
+            this.drivers = new Dictionary<int, Driver>();
+            var con = new SqlConnection(CONNECTION_STRING);
+            using (con)
             {
-                this.Drivers = new Dictionary<int, Driver>();
-                var con = new SqlConnection(CONNECTION_STRING);
-                using (con)
+                con.Open();
+                var command = new SqlCommand("SELECT * FROM Drivers;", con);
+                SqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
                 {
-                    con.Open();
-                    var command = new SqlCommand("SELECT * FROM Drivers;", con);
-                    SqlDataReader reader = command.ExecuteReader();
-                    while (reader.Read())
+                    Driver d = new Driver(reader.GetInt32(0))
                     {
-                        int driverIsoCode = reader.GetInt32(0);
-                        Driver d = new Driver(driverIsoCode)
-                        {
-                            Firstname = reader.GetString(1),
-                            Lastname = reader.GetString(2),
-                            Dob = reader.GetDateTime(3),
-                            PlaceOfBirth = reader.GetString(4),
-                            Country = Countries[reader.GetString(5)]
-                        };
-                        this.Drivers.Add(driverIsoCode, d);
-                    }
-                    con.Close();
-                    con.Dispose();
+                        Firstname = reader.GetString(1),
+                        Lastname = reader.GetString(2),
+                        Dob = reader.GetDateTime(3),
+                        PlaceOfBirth = reader.GetString(4),
+                        Country = this.Countries[reader.GetString(5)],
+                        Img = reader.GetString(6),
+                        Description = reader.GetString(7)
+                    };
+                    this.drivers.Add(d.ID, d);
                 }
-                SqlConnection.ClearAllPools();
+                con.Close();
+                con.Dispose();
             }
+            SqlConnection.ClearAllPools();
         }
 
-        public void LoadTeams()
+        private void LoadTeams()
         {
-            GetCountries();
-            GetDrivers(true);
-            teams = new List<Team>();
+            this.teams = new List<Team>();
             var con = new SqlConnection($@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename={WORKINGPATH}FormulaOne.mdf;Integrated Security=True");
             using (con)
             {
@@ -218,9 +176,8 @@ namespace FormulaOneDll
                 SqlDataReader reader = command.ExecuteReader();
                 while (reader.Read())
                 {
-                    Team t = new Team()
+                    Team t = new Team(reader.GetInt32(0))
                     {
-                        ID = reader.GetInt32(0),
                         Name = reader.GetString(1),
                         FullTeamName = reader.GetString(2),
                         Country = this.Countries[reader.GetString(3)],
@@ -228,9 +185,10 @@ namespace FormulaOneDll
                         TechnicalChief = reader.GetString(5),
                         Chassis = reader.GetString(6),
                         FirstDriver = this.Drivers[reader.GetInt32(7)],
-                        SecondDriver = this.Drivers[reader.GetInt32(8)]
+                        SecondDriver = this.Drivers[reader.GetInt32(8)],
+                        Img = reader.GetString(9)
                     };
-                    teams.Add(t);
+                    this.teams.Add(t);
                 }
                 con.Close();
                 con.Dispose();
@@ -238,16 +196,77 @@ namespace FormulaOneDll
             SqlConnection.ClearAllPools();
         }
 
-        public bool SerializeToJSON<T>(IEnumerable<T> list, string path)
+        private void GetCircuits(bool forceReload = false)
+        {
+            this.circuits = new Dictionary<int, Circuit>();
+            var con = new SqlConnection(CONNECTION_STRING);
+            using (con)
+            {
+                con.Open();
+                var command = new SqlCommand("SELECT * FROM Circuits;", con);
+                SqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    Circuit c = new Circuit(reader.GetInt32(0))
+                    {
+                        Name = reader.GetString(1),
+                        Length = reader.GetInt32(2),
+                        Laps = reader.GetInt32(3),
+                        Country = this.Countries[reader.GetString(4)],
+                        RecordLap = reader.GetString(5),
+                        Img = reader.GetString(6)
+                    };
+                    this.circuits.Add(c.ID, c);
+                }
+                con.Close();
+                con.Dispose();
+            }
+            SqlConnection.ClearAllPools();
+        }
+
+        private void GetRaces()
+        {
+            this.races = new Dictionary<int, Race>();
+            var con = new SqlConnection(CONNECTION_STRING);
+            using (con)
+            {
+                con.Open();
+                var command = new SqlCommand("SELECT * FROM Races;", con);
+                SqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    Race r = new Race(reader.GetInt32(0))
+                    {
+                        Name = reader.GetString(1),
+                        Circuit = this.Circuits[reader.GetInt32(2)],
+                        Date = reader.GetDateTime(3)
+                    };
+                    this.races.Add(r.ID, r);
+                }
+                con.Close();
+                con.Dispose();
+            }
+            SqlConnection.ClearAllPools();
+        }
+
+        public bool SerializeToJSON<T>(string path)
         {
             try
             {
-                string json = JsonConvert.SerializeObject(list, Formatting.Indented);
-                new StreamWriter(path, false).Write(json);
+                StreamWriter sw = new StreamWriter(path, false);
+                sw.AutoFlush = true;
+                sw.WriteLine("{");
+                sw.WriteLine($"\t\"teams\": {JsonConvert.SerializeObject(Teams, Formatting.Indented)},");
+                sw.WriteLine($"\t\"drivers\": {JsonConvert.SerializeObject(Drivers.Values, Formatting.Indented)},");
+                sw.WriteLine($"\t\"races\": {JsonConvert.SerializeObject(Races.Values, Formatting.Indented)},");
+                sw.WriteLine($"\t\"circuits\": {JsonConvert.SerializeObject(Circuits.Values, Formatting.Indented)},");
+                sw.WriteLine($"\t\"countries\": {JsonConvert.SerializeObject(Countries.Values, Formatting.Indented)}");
+                sw.Write("}");
                 return true;
             }
             catch (Exception e)
             {
+                Console.WriteLine(e.Message);
                 return false;
             }
         }

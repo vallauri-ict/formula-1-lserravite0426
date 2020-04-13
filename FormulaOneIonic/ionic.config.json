@@ -1,0 +1,7 @@
+{
+  "name": "FormulaOneIonic",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}

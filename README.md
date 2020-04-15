@@ -24,3 +24,4 @@ root
 - [npm](https://npmjs.com)
 - [Angular CLI](https://cli.angular.io)
 - [Ionic Cli](https://ionicframework.com/)
+- [Vue.js](https://www.vuejs.org)

@@ -22,12 +22,22 @@
                 <button class="button is-link" v-on:click="request('drivers')" v-bind:disabled="disableButtons">Drivers</button>
                 <button class="button is-link" v-on:click="request('circuits')" v-bind:disabled="disableButtons">Circuits</button>
             </div>
-        </div> 
+        </div>
+        <div class="columns">
+            <div class="column is-4"></div>
+            <div class="column is-4">
+                <input type="text" class="input" placeholder="Search by ID" v-bind:disabled="dataRequired == '' || data.length == 0" v-on:input="search" v-model="searchID" />
+            </div>
+            <div class="column is-4"></div>
+        </div>
         <div class="columns" v-for="row in rows">
-            <div class="column is-4" v-for="item in row">
-                <team-card :team="item" v-if="dataRequired == 'teams'"></team-card>
-                <driver-card :driver="item"  v-if="dataRequired == 'drivers'"></driver-card>
-                <circuit-card :Circuit="item" v-if="dataRequired == 'circuits'"></circuit-card>
+            <div class="column is-4" v-for="item in row" v-if="!notFound">
+                <team-card v-bind:team="item" v-if="dataRequired == 'teams'"></team-card>
+                <driver-card v-bind:driver="item" v-if="dataRequired == 'drivers'"></driver-card>
+                <circuit-card v-bind:Circuit="item" v-if="dataRequired == 'circuits'"></circuit-card>
+            </div>
+            <div class="column is-12" v-if="notFound">
+                <h3 class="has-text-centered has-text-danger is-uppercase has-text-weight-bold">{{ dataRequired.substring(0, dataRequired.length - 1) }} not found.</h3>
             </div>
         </div>
     </div>

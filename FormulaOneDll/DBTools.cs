@@ -26,6 +26,7 @@ namespace FormulaOneDll
         private List<Team> teams;
         private Dictionary<int, Circuit> circuits;
         private Dictionary<int, Race> races;
+        private Dictionary<int, Score> scores;
 
         #region Tables
         public Dictionary<int, Driver> Drivers
@@ -77,6 +78,16 @@ namespace FormulaOneDll
                 return races;
             }
             set => races = value;
+        }
+        public Dictionary<int, Score> Scores
+        {
+            get
+            {
+                if (scores == null || scores.Count == 0)
+                    this.GetScores();
+                return scores;
+            }
+            set => scores = value;
         }
         #endregion
 
@@ -186,7 +197,7 @@ namespace FormulaOneDll
                         Chassis = reader.GetString(6),
                         FirstDriver = this.Drivers[reader.GetInt32(7)],
                         SecondDriver = this.Drivers[reader.GetInt32(8)],
-                        Img = reader.GetString(9)
+                        Logo = reader.GetString(9)
                     };
                     this.teams.Add(t);
                 }
@@ -242,6 +253,30 @@ namespace FormulaOneDll
                         Date = reader.GetDateTime(3)
                     };
                     this.races.Add(r.ID, r);
+                }
+                con.Close();
+                con.Dispose();
+            }
+            SqlConnection.ClearAllPools();
+        }
+
+        private void GetScores()
+        {
+            this.scores = new Dictionary<int, Score>();
+            var con = new SqlConnection(CONNECTION_STRING);
+            using (con)
+            {
+                con.Open();
+                var command = new SqlCommand("SELECT * FROM Scores;", con);
+                SqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    Score s = new Score()
+                    {
+                        Pos = reader.GetInt32(0),
+                        Points = reader.GetInt32(1)
+                    };
+                    this.scores.Add(s.Pos, s);
                 }
                 con.Close();
                 con.Dispose();

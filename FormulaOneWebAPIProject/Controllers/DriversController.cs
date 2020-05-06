@@ -10,15 +10,18 @@ using FormulaOneDll;
 namespace FormulaOneWebAPIProject.Controllers
 {
     [EnableCors(origins: "*", headers: "*", methods: "*")]
+    [RoutePrefix("/api/drivers")]
     public class DriversController : ApiController
     {
         DbTools db = new DbTools();
 
+        [Route("")]
         public IEnumerable<Driver> GetAllDrivers()
         {
             return db.Drivers.Values;
         }
 
+        [Route("{id:int}")]
         public IHttpActionResult GetCircuit(int id)
         {
             try

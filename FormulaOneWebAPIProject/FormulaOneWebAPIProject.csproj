@@ -103,6 +103,10 @@
     <Compile Include="Controllers\DriversController.cs" />
     <Compile Include="Controllers\RacesController.cs" />
     <Compile Include="Controllers\TeamsController.cs" />
+    <Compile Include="DTOs\CircuitItem.cs" />
+    <Compile Include="DTOs\RaceItem.cs" />
+    <Compile Include="DTOs\DriverItem.cs" />
+    <Compile Include="DTOs\TeamItem.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

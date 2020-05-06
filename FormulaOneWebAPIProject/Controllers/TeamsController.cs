@@ -10,16 +10,19 @@ using FormulaOneDll;
 namespace FormulaOneWebAPIProject.Controllers
 {
     [EnableCors(origins: "*", headers: "*", methods: "*")]
+    [RoutePrefix("/api/teams")]
     public class TeamsController : ApiController
     {
         DbTools db = new DbTools();
 
+        [Route("")]
         public IEnumerable<Team> GetAllTeams()
         {
             return db.Teams;
         }
 
-        public IHttpActionResult GetCircuit(int id)
+        [Route("{id:int}")]
+        public IHttpActionResult GetTeams(int id)
         {
             Team t = db.Teams.Find(team => team.ID == id);
             if (t != null)

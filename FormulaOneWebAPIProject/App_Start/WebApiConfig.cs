@@ -13,7 +13,7 @@ namespace FormulaOneWebAPIProject
             config.EnableCors();
 
             // Route dell'API Web
-            config.MapHttpAttributeRoutes();
+            //config.MapHttpAttributeRoutes();
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",

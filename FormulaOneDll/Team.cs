@@ -29,6 +29,8 @@ namespace FormulaOneDll
         private Driver firstDriver;
         [DataMember(Name = "secondDriver")]
         private Driver secondDriver;
+        [DataMember(Name = "logo")]
+        private string logo;
         [DataMember(Name = "img")]
         private string img;
         #endregion
@@ -41,7 +43,7 @@ namespace FormulaOneDll
             this.id = id;
         }
 
-        public Team(int id, string nome, string fullTeamName, Country country, string powerUnit, string technicalChief, string chassis, Driver firstDriver, Driver secondDriver, string img) : this(id)
+        public Team(int id, string nome, string fullTeamName, Country country, string powerUnit, string technicalChief, string chassis, Driver firstDriver, Driver secondDriver, string logo, string img) : this(id)
         {
             this.Name = nome;
             this.FullTeamName = fullTeamName;
@@ -51,6 +53,7 @@ namespace FormulaOneDll
             this.Chassis = chassis;
             this.FirstDriver = firstDriver;
             this.SecondDriver = secondDriver;
+            this.Logo = logo;
             this.Img = img;
         }
         #endregion
@@ -65,6 +68,7 @@ namespace FormulaOneDll
         public string Chassis { get => chassis; set => chassis = value; }
         public Driver FirstDriver { get => firstDriver; set => firstDriver = value; }
         public Driver SecondDriver { get => secondDriver; set => secondDriver = value; }
+        public string Logo { get => logo; set => logo = value; }
         public string Img { get => img; set => img = value; }
         #endregion
 

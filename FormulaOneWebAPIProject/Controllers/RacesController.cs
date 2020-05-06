@@ -10,15 +10,18 @@ using System.Web.Http.Cors;
 namespace FormulaOneWebAPIProject.Controllers
 {
     [EnableCors(origins: "*", headers: "*", methods: "*")]
+    [RoutePrefix("/api/races")]
     public class RacesController : ApiController
     {
         DbTools db = new DbTools();
 
+        [Route("")]
         public IEnumerable<Race> GetAllRaces()
         {
             return db.Races.Values;
         }
 
+        [Route("{id:int}")]
         public IHttpActionResult GetRace(int id)
         {
             try

@@ -27,4 +27,4 @@ root
 - [Vue.js](https://www.vuejs.org)
 
 ## DB schema
-![DB Schema](./data/f1-schema.png)
+![DB Schema](./assets/f1-schema.png)

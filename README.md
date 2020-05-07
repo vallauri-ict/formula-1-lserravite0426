@@ -26,7 +26,7 @@ root
 - [C#](https://docs.microsoft.com/it-it/learn/modules/csharp-write-first/)
 - [npm](https://npmjs.com)
 - [Angular CLI](https://cli.angular.io)
-- [Ionic Cli](https://ionicframework.com/)
+- [Ionic CLI](https://ionicframework.com/)
 - [Vue.js](https://www.vuejs.org)
 
 ## DB schema

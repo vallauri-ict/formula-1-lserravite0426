@@ -16,8 +16,8 @@ namespace FormulaOneBacthConsoleProject
             "Teams",
             "Circuits",
             "Races",
-            "RacesScores",
-            "Scores"
+            "Scores",
+            "RacesScores"
         };
 
         static void Main(string[] args)
@@ -28,9 +28,8 @@ namespace FormulaOneBacthConsoleProject
                 #region Menu
                 Console.WriteLine("*** FORMULA ONE - BATCH SCRIPTS ***");
                 Console.WriteLine("1 - CREATE DATABASE");
-                Console.WriteLine("2 - SET CONSTRAINTS");
-                Console.WriteLine("3 - DROP DATABASE");
-                Console.WriteLine("4 - EXPORT TO JSON");
+                Console.WriteLine("2 - DROP DATABASE");
+                Console.WriteLine("3 - EXPORT TO JSON");
                 Console.WriteLine("X - EXIT");
                 #endregion
                 scelta = Char.ToUpper(Console.ReadKey(true).KeyChar);
@@ -38,9 +37,8 @@ namespace FormulaOneBacthConsoleProject
                 switch (scelta)
                 {
                     case '1': SetDB("Create"); break;
-                    case '2': SetContraints(); break;
-                    case '3': SetDB("Drop"); break;
-                    case '4':
+                    case '2': SetDB("Drop"); break;
+                    case '3':
                         string path = @"D:\Dati\db.json";
                         if (db.SerializeToJSON<Team>(path))
                             Console.WriteLine("OK.");
@@ -61,9 +59,19 @@ namespace FormulaOneBacthConsoleProject
 
         private static void SetDB(string operation)
         {
-            foreach (string table in tables)
+            if (operation == "Drop")
             {
-                CallExecuteSqlScript($"{operation}{table}.sql");
+                foreach (string table in tables.Reverse())
+                {
+                    CallExecuteSqlScript($"{operation}{table}.sql");
+                }
+            }
+            else
+            {
+                foreach (string table in tables)
+                {
+                    CallExecuteSqlScript($"{operation}{table}.sql");
+                }
             }
         }
         private static void SetContraints()

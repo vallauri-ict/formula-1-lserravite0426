@@ -25,3 +25,6 @@ root
 - [Angular CLI](https://cli.angular.io)
 - [Ionic Cli](https://ionicframework.com/)
 - [Vue.js](https://www.vuejs.org)
+
+## DB schema
+![DB Schema](./data/f1-schema.png)

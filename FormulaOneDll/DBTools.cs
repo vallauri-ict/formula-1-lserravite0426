@@ -27,6 +27,7 @@ namespace FormulaOneDll
         private Dictionary<int, Circuit> circuits;
         private Dictionary<int, Race> races;
         private Dictionary<int, Score> scores;
+        private List<RaceScore> racesScore;
 
         #region Tables
         public Dictionary<int, Driver> Drivers
@@ -88,6 +89,16 @@ namespace FormulaOneDll
                 return scores;
             }
             set => scores = value;
+        }
+        public List<RaceScore> RacesScores
+        {
+            get
+            {
+                if (this.racesScore == null || this.racesScore.Count == 0)
+                    this.LoadScores();
+                return this.racesScore;
+            }
+            set => racesScore = value;
         }
         #endregion
 
@@ -277,6 +288,32 @@ namespace FormulaOneDll
                         Points = reader.GetInt32(1)
                     };
                     this.scores.Add(s.Pos, s);
+                }
+                con.Close();
+                con.Dispose();
+            }
+            SqlConnection.ClearAllPools();
+        }
+
+        private void LoadScores()
+        {
+            this.racesScore = new List<RaceScore>();
+            var con = new SqlConnection(CONNECTION_STRING);
+            using (con)
+            {
+                con.Open();
+                var command = new SqlCommand("SELECT * FROM Races_Scores;", con);
+                SqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    RaceScore rs = new RaceScore()
+                    {
+                        Driver = this.Drivers[reader.GetInt32(0)],
+                        Pos = this.Scores[reader.GetInt32(1)],
+                        Race = this.Races[reader.GetInt32(2)],
+                        FastesLap = reader.GetString(3)
+                    };
+                    this.racesScore.Add(rs);
                 }
                 con.Close();
                 con.Dispose();

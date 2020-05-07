@@ -86,14 +86,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="css\index.css" />
     <Content Include="Global.asax" />
-    <Content Include="index.html" />
-    <Content Include="css\bulma.min.css" />
-    <Content Include="js\index.js" />
-    <Content Include="js\jquery.min.js" />
-    <Content Include="js\vue\components.js" />
-    <Content Include="js\vue\vue.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -102,6 +95,7 @@
     <Compile Include="Controllers\CountriesController.cs" />
     <Compile Include="Controllers\DriversController.cs" />
     <Compile Include="Controllers\RacesController.cs" />
+    <Compile Include="Controllers\RacesScoresController.cs" />
     <Compile Include="Controllers\TeamsController.cs" />
     <Compile Include="DTOs\CircuitItem.cs" />
     <Compile Include="DTOs\RaceItem.cs" />

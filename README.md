@@ -15,6 +15,9 @@ root
   +--- FormulaOneIonic
   +--- FormulaOneWebAPIProject
   +--- FormulaOneWebFormProject
+  +--- assets
+  +--- data
+  +--- formulaonevue
   + FormulaOneSolution.sln
   + README.md
 ```

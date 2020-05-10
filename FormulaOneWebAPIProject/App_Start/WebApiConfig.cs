@@ -13,8 +13,9 @@ namespace FormulaOneWebAPIProject
             config.EnableCors();
 
             // Route dell'API Web
-            //config.MapHttpAttributeRoutes();
+            config.MapHttpAttributeRoutes();
 
+            // Convention-based routing.
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
                 routeTemplate: "api/{controller}/{id}",

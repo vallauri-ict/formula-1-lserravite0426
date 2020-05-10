@@ -285,7 +285,8 @@ namespace FormulaOneDll
                     Score s = new Score()
                     {
                         Pos = reader.GetInt32(0),
-                        Points = reader.GetInt32(1)
+                        Points = reader.GetInt32(1),
+                        Details = reader.GetString(2)
                     };
                     this.scores.Add(s.Pos, s);
                 }

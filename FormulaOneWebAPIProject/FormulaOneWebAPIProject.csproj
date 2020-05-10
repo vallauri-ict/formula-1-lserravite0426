@@ -45,6 +45,7 @@
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Net.Http" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web.Cors, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Cors.5.2.7\lib\net45\System.Web.Cors.dll</HintPath>
     </Reference>
@@ -98,8 +99,9 @@
     <Compile Include="Controllers\RacesScoresController.cs" />
     <Compile Include="Controllers\TeamsController.cs" />
     <Compile Include="DTOs\CircuitItem.cs" />
-    <Compile Include="DTOs\RaceItem.cs" />
+    <Compile Include="DTOs\RaceScoreDriver.cs" />
     <Compile Include="DTOs\DriverItem.cs" />
+    <Compile Include="DTOs\RaceScoreRace.cs" />
     <Compile Include="DTOs\TeamItem.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

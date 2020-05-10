@@ -1,9 +1,46 @@
 <template>
-  <p>Ciao</p>
+  <v-container>
+    <v-row v-for="(row, i) in rows" :key="i">
+      <v-col cols="12" md="4" v-for="(team, j) in row" :key="j">
+        <v-card max-width="344" class="mx-auto" min-height="344">
+          <v-list-item>
+            <v-list-item-avatar>
+              <v-img :src="team.logo"></v-img>
+            </v-list-item-avatar>
+            <v-list-item-content>
+              <v-list-item-title class="headline">{{team.name}}</v-list-item-title>
+              <v-list-item-subtitle>{{team.country}}</v-list-item-subtitle>
+            </v-list-item-content>
+          </v-list-item>
+          <v-img :src="team.logo" height="200"></v-img>
+
+          <v-card-text>Drivers: {{team.drivers.join(', ')}}</v-card-text>
+        </v-card>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
-export default {};
+import axios from "axios";
+
+export default {
+  beforeMount() {
+    axios.get("https://localhost:44307/api/teams/list").then(data => {
+      console.log(data.data);
+      this.teams = data.data;
+      for (let i = 0; i < this.teams.length; i += 3) {
+        this.rows.push(this.teams.slice(i, i + 3));
+      }
+    });
+  },
+  data() {
+    return {
+      teams: [],
+      rows: []
+    };
+  }
+};
 </script>
 <style>
 </style>

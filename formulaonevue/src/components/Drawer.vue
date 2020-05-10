@@ -8,6 +8,7 @@
     app
     :mini-variant="small"
     :expand-on-hover="small"
+    width="200"
   >
     <v-list nav class="py-0">
       <v-list-item two-line :mini-variant="small" class="px-0">
@@ -60,18 +61,23 @@ export default {
         },
         {
           title: "Teams",
-          icon: "mdi-image",
+          icon: "mdi-account-group",
           path: "/teams"
         },
         {
           title: "Drivers",
-          icon: "mdi-help-box",
-          path: "/banks"
+          icon: "mdi-account",
+          path: "/drivers"
         },
         {
           title: "Circuits",
-          icon: "mdi-note",
-          path: "/notes"
+          icon: "mdi-road",
+          path: "/circuits"
+        },
+        {
+          title: "Races",
+          icon: "mdi-flag",
+          path: "/races"
         }
       ]
     };

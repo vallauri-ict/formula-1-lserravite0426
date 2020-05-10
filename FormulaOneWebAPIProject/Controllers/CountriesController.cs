@@ -10,18 +10,18 @@ using System.Web.Http.Cors;
 namespace FormulaOneWebAPIProject.Controllers
 {
     [EnableCors(origins: "*", headers: "*", methods: "*")]
-    [RoutePrefix("/api/countries")]
+    //[RoutePrefix("api/countries")]
     public class CountriesController : ApiController
     {
         DbTools db = new DbTools();
     
-        [Route("")]
+        //[Route("")]
         public IEnumerable<Country> GetAllCountries()
         {
             return db.Countries.Values;
         }
 
-        [Route("{id:string}")]
+        //[Route("{id:string}")]
         public IHttpActionResult GetCountry(string id)
         {
             try

@@ -10,29 +10,27 @@ using System.Web.Http.Cors;
 namespace FormulaOneWebAPIProject.Controllers
 {
     [EnableCors(origins: "*", headers: "*", methods: "*")]
-    [RoutePrefix("/api/races")]
+    [RoutePrefix("api/races")]
     public class RacesController : ApiController
     {
         DbTools db = new DbTools();
 
-        [Route("")]
+        [Route("list")]
         public IEnumerable<Race> GetAllRaces()
         {
             return db.Races.Values;
         }
 
         [Route("{id:int}")]
-        public IHttpActionResult GetRace(int id)
+        public Race GetRace(int id)
         {
-            try
-            {
-                Race r = db.Races[id];
-                return Ok(r);
-            }
-            catch (Exception)
-            {
-                return NotFound();
-            }
+            return db.Races[id];
+        }
+
+        [Route("count")]
+        public int GetRacesCount()
+        {
+            return db.Races.Count;
         }
     }
 }

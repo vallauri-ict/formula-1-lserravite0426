@@ -12,22 +12,21 @@ root
   +--- FormulaOneBacthConsoleProject
   +--- FormulaOneCrudFormProject
   +--- FormulaOneDll
-  +--- FormulaOneIonic
   +--- FormulaOneWebAPIProject
   +--- FormulaOneWebFormProject
   +--- assets
   +--- data
   +--- formulaonevue
   + FormulaOneSolution.sln
+  + MODELS.md
   + README.md
 ```
 
 ## Prerequisites
 - [C#](https://docs.microsoft.com/it-it/learn/modules/csharp-write-first/)
-- [npm](https://npmjs.com)
-- [Angular CLI](https://cli.angular.io)
-- [Ionic CLI](https://ionicframework.com/)
-- [Vue.js](https://www.vuejs.org)
+- [npm](https://npmjs.com/)
+- [Vue.js](https://www.vuejs.org/)
+- [Vuetify](https://vuetifyjs.com/)
 
 ## DB schema
 ![DB Schema](./assets/f1-schema.png)

@@ -3,7 +3,7 @@
     class="overflow-hidden"
     v-model="drawer"
     permanent
-    color="success"
+    color="red"
     dark
     app
     :mini-variant="small"
@@ -55,7 +55,7 @@ export default {
       selected: 0,
       pages: [
         {
-          title: "Daskboard",
+          title: "Dashboard",
           icon: "mdi-view-dashboard",
           path: "/"
         },
@@ -75,7 +75,7 @@ export default {
           path: "/circuits"
         },
         {
-          title: "Races",
+          title: "Races scores",
           icon: "mdi-flag",
           path: "/races"
         }

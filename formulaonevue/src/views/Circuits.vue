@@ -1,8 +1,9 @@
 <template>
   <v-container>
+    <v-text-field class="mt-n4" :loading="loading" disabled v-if="loading"></v-text-field>
     <v-row v-for="(row, i) in rows" :key="i">
       <v-col cols="12" md="4" v-for="(circuit, j) in row" :key="j">
-        <v-card max-width="344" class="mx-auto" @click="toCircuit(circuit)">
+        <v-card max-width="344" class="mx-auto">
           <v-list-item>
             <v-list-item-avatar>
               <v-img :src="circuit.img"></v-img>
@@ -35,18 +36,15 @@ export default {
       for (let i = 0; i < this.circuits.length; i += 3) {
         this.rows.push(this.circuits.slice(i, i + 3));
       }
+      this.loading = false;
     });
   },
   data() {
     return {
       circuits: [],
-      rows: []
+      rows: [],
+      loading: true
     };
-  },
-  methods: {
-    toCircuit(circuit) {
-      console.log(circuit.id);
-    }
   }
 };
 </script>

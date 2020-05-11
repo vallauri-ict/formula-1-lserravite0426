@@ -135,6 +135,7 @@ export default {
             this.filter == "drivers" ? HEADER_DRIVERS : HEADER_RACES;
           this.items = data.data;
           this.loading.data = false;
+          this.search = "";
         });
     }
   }

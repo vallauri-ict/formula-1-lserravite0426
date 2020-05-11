@@ -26,7 +26,7 @@ export default {
 
   data() {
     return {
-      small: false
+      small: true
     };
   }
 };

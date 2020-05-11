@@ -1,5 +1,6 @@
 <template>
   <v-container>
+    <v-text-field class="mt-n4" :loading="loading" disabled v-if="loading"></v-text-field>
     <v-row v-for="(row, i) in rows" :key="i">
       <v-col cols="12" md="4" v-for="(team, j) in row" :key="j">
         <v-card max-width="344" class="mx-auto" min-height="344">
@@ -32,12 +33,14 @@ export default {
       for (let i = 0; i < this.teams.length; i += 3) {
         this.rows.push(this.teams.slice(i, i + 3));
       }
+      this.loading = false;
     });
   },
   data() {
     return {
       teams: [],
-      rows: []
+      rows: [],
+      loading: true
     };
   }
 };

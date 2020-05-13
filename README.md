@@ -1,4 +1,4 @@
-![F1 LOGO](./assets/F1-LOGO.jpg)
+![F1 LOGO](./assets/F1_LOGO.jpg)
 
 # formula-1-lserravite0426
 This project was created during S.Y. 2019/2020.

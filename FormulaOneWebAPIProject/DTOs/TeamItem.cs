@@ -11,21 +11,21 @@ namespace FormulaOneWebAPIProject.DTOs
     public class TeamItem
     {
         [DataMember(Name = "id")]
-        private int id;
+        public int id;
         [DataMember(Name = "name")]
-        private string name;
+        public string name;
         [DataMember(Name = "country")]
-        private string country;
+        public string country;
         [DataMember(Name = "powerUnit")]
-        private string powerUnit;
+        public string powerUnit;
         [DataMember(Name = "chassis")]
-        private string chassis;
+        public string chassis;
         [DataMember(Name = "drivers")]
-        private string[] drivers;
+        public string[] drivers;
         [DataMember(Name = "logo")]
-        private string logo;
+        public string logo;
         [DataMember(Name = "img")]
-        private string img;
+        public string img;
 
         public TeamItem(Team t)
         {

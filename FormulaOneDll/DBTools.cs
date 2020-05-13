@@ -208,7 +208,8 @@ namespace FormulaOneDll
                         Chassis = reader.GetString(6),
                         FirstDriver = this.Drivers[reader.GetInt32(7)],
                         SecondDriver = this.Drivers[reader.GetInt32(8)],
-                        Logo = reader.GetString(9)
+                        Logo = reader.GetString(9),
+                        Img = reader.GetString(10)
                     };
                     this.teams.Add(t);
                 }

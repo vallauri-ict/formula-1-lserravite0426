@@ -37,7 +37,12 @@
         </v-row>
         <v-row>
           <v-col cols="12" md="6">
-            <DataCount text="Races scores" icon="mdi-flag" :items="racesScores" page="/races" />
+            <DataCount
+              text="Races scores"
+              icon="mdi-flag"
+              :items="racesScores"
+              page="/races-scores"
+            />
           </v-col>
           <v-col cols="12" md="4"></v-col>
         </v-row>
@@ -73,19 +78,19 @@ export default {
   },
   beforeMount() {
     axios
-      .get("https://localhost:44307/api/teams/count")
+      .get(this.$url + "/api/teams/count")
       .then(data => (this.teamsCount = data.data));
     axios
-      .get("https://localhost:44307/api/drivers/count")
+      .get(this.$url + "/api/drivers/count")
       .then(data => (this.driversCount = data.data));
     axios
-      .get("https://localhost:44307/api/circuits/count")
+      .get(this.$url + "/api/circuits/count")
       .then(data => (this.circuitsCount = data.data));
     axios
-      .get("https://localhost:44307/api/races/count")
+      .get(this.$url + "/api/races/count")
       .then(data => (this.racesCount = data.data));
     axios
-      .get("https://localhost:44307/api/racesScores/count")
+      .get(this.$url + "/api/racesScores/count")
       .then(data => (this.racesScoresCount = data.data));
   },
   computed: {

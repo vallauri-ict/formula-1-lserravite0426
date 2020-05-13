@@ -17,17 +17,9 @@ namespace FormulaOneWebAPIProject.Controllers
         DbTools db = new DbTools();
 
         [Route("list")]
-        public IEnumerable<CircuitItem> GetAllCircuits()
+        public IEnumerable<Circuit> GetAllCircuits()
         {
-            List<CircuitItem> c = new List<CircuitItem>();
-            db.Circuits.Values.ToList().ForEach(circuit => c.Add(new CircuitItem(circuit)));
-            return c;
-        }
-
-        [Route("{id:int}")]
-        public Circuit GetCircuit(int id)
-        {
-            return db.Circuits[id];
+            return db.Circuits.Values;
         }
 
         [Route("count")]

@@ -11,15 +11,15 @@ namespace FormulaOneWebAPIProject.DTOs
     public class DriverItem
     {
         [DataMember(Name = "id")]
-        private readonly int id;
+        public readonly int id;
         [DataMember(Name = "name")]
-        private string fullname;
+        public string fullname;
         [DataMember(Name = "country")]
-        private string country;
+        public string country;
         [DataMember(Name = "img")]
-        private string img;
+        public string img;
         [DataMember(Name = "description")]
-        private string description;
+        public string description;
 
         public DriverItem(Driver d)
         {

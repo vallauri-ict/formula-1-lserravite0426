@@ -11,13 +11,13 @@ namespace FormulaOneWebAPIProject.DTOs
     public class RaceScoreRace
     {
         [DataMember(Name = "driver")]
-        private string driver;
+        public string driver;
         [DataMember(Name = "pos")]
-        private int pos;
+        public int pos;
         [DataMember(Name = "score")]
-        private int score;
+        public int score;
         [DataMember(Name = "details")]
-        private string details;
+        public string details;
 
         public RaceScoreRace(RaceScore s)
         {

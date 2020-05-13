@@ -1,3 +1,5 @@
+![F1 LOGO](./assets/F1-LOGO.jpg)
+
 # formula-1-lserravite0426
 This project was created during S.Y. 2019/2020.
 
@@ -45,4 +47,5 @@ root
 - Enter in `formulaonevue` directory.
 - Open a terminal.
 - Write the command `npm i` and press enter.
+- Change in `src/main.js` the `$url` value with the Web API server URL.
 - Write the command `npm run serve` and press enter.

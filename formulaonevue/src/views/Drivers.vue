@@ -1,9 +1,9 @@
 <template>
   <v-container>
-    <v-text-field class="mt-n4" :loading="loading" disabled v-if="loading"></v-text-field>
+    <v-text-field class="mt-n5" loading disabled v-if="loading"></v-text-field>
     <v-row v-for="(row, i) in rows" :key="i">
       <v-col cols="12" md="4" v-for="(driver, j) in row" :key="j">
-        <v-card max-width="344" class="mx-auto">
+        <v-card max-width="344" class="mx-auto" @click="cardClick(driver)">
           <v-list-item>
             <v-list-item-avatar>
               <v-img :src="driver.img"></v-img>
@@ -19,16 +19,21 @@
         </v-card>
       </v-col>
     </v-row>
+    <DriverDialog @close="closeDialog()" :dialog="dialog" :driver="driver" />
   </v-container>
 </template>
 
 <script>
 import axios from "axios";
 
+import DriverDialog from "../components/DriverDialog";
+
 export default {
+  components: {
+    DriverDialog
+  },
   beforeMount() {
-    axios.get("https://localhost:44307/api/drivers/list").then(data => {
-      console.log(data.data);
+    axios.get(this.$url + "/api/drivers/list").then(data => {
       this.drivers = data.data;
       for (let i = 0; i < this.drivers.length; i += 3) {
         this.rows.push(this.drivers.slice(i, i + 3));
@@ -40,8 +45,22 @@ export default {
     return {
       drivers: [],
       rows: [],
-      loading: true
+      loading: true,
+      dialog: false,
+      driver: null
     };
+  },
+  methods: {
+    cardClick(driver) {
+      this.dialog = true;
+      this.driver = null;
+      axios
+        .get(this.$url + "/api/drivers/" + driver.id + "/details")
+        .then(data => (this.driver = data.data));
+    },
+    closeDialog() {
+      this.dialog = false;
+    }
   }
 };
 </script>

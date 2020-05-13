@@ -6,6 +6,7 @@ import Teams from "../views/Teams.vue"
 import Drivers from "../views/Drivers.vue";
 import Circuits from "../views/Circuits.vue";
 import Races from "../views/Races.vue";
+import RacesScores from "../views/RacesScores.vue";
 
 Vue.use(VueRouter);
 
@@ -29,6 +30,10 @@ const routes = [
   {
     path: "/races",
     component: Races
+  },
+  {
+    path: "/races-scores",
+    component: RacesScores
   }
 ];
 

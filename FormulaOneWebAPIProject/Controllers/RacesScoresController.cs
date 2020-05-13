@@ -36,6 +36,18 @@ namespace FormulaOneWebAPIProject.Controllers
         {
             List<RaceScoreRace> rs = new List<RaceScoreRace>();
             db.RacesScores.FindAll(r => r.Race.ID == id).ForEach(r => rs.Add(new RaceScoreRace(r)));
+            rs = rs.OrderBy(r => r.pos).ToList();
+            for (int i = 0; i < rs.Count; i++)
+            {
+                if (rs[i].pos == 0)
+                {
+                    RaceScoreRace r = rs[i];
+                    rs.RemoveAt(i--);
+                    rs.Add(r);
+                }
+                else
+                    break;
+            }
             return rs;
         }
 

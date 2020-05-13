@@ -75,9 +75,14 @@ export default {
           path: "/circuits"
         },
         {
+          title: "Races",
+          icon: "mdi-calendar",
+          path: "/races"
+        },
+        {
           title: "Races scores",
           icon: "mdi-flag",
-          path: "/races"
+          path: "/races-scores"
         }
       ]
     };

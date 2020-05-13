@@ -6,6 +6,8 @@ import vuetify from "./plugins/vuetify";
 
 Vue.config.productionTip = false;
 
+Vue.prototype.$url = "https://localhost:44307";
+
 new Vue({
   router,
   store,

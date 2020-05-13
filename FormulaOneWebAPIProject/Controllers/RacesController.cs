@@ -1,4 +1,5 @@
 ﻿using FormulaOneDll;
+using FormulaOneWebAPIProject.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,9 +17,11 @@ namespace FormulaOneWebAPIProject.Controllers
         DbTools db = new DbTools();
 
         [Route("list")]
-        public IEnumerable<Race> GetAllRaces()
+        public IEnumerable<RaceItem> GetAllRaces()
         {
-            return db.Races.Values;
+            List<RaceItem> r = new List<RaceItem>();
+            db.Races.Values.ToList().ForEach(race => r.Add(new RaceItem(race)));
+            return r;
         }
 
         [Route("{id:int}")]
